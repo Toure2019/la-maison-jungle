@@ -1,26 +1,23 @@
-function Categories({categories, plantList, plantItemList, updatePlantItemList}) {
-    
-    function handleChange(event) {
-        if(event.target.value === '') {
-            updatePlantItemList(plantList);
-            console.log('Toutes les catégories', plantList);
-        } else { 
-            const newList = plantItemList.reduce(
-                (acc, plant) => plant.category === event.target.value ? acc.concat(plant) : acc, []
-            );
-            console.log('newList', newList);
-            updatePlantItemList(newList);
-        }
-    }
+import '../styles/Categories.css'
 
-    return (
-        <select onChange={handleChange}>
-            <option key="cat00"></option>
-            {categories.map((categorie, index) => (
-                <option key={`${index}-${categorie}`} value={categorie}>{ categorie }</option>
-            ))}
-        </select>
-    )
+function Categories({ setActiveCategory, categories, activeCategory }) {
+	return (
+		<div className='lmj-categories'>
+			<select
+				value={activeCategory}
+				onChange={(e) => setActiveCategory(e.target.value)}
+				className='lmj-categories-select'
+			>
+				<option value=''>---</option>
+				{categories.map((cat) => (
+					<option key={cat} value={cat}>
+						{cat}
+					</option>
+				))}
+			</select>
+			<button onClick={() => setActiveCategory('')}>Réinitialiser</button>
+		</div>
+	)
 }
 
-export default Categories;
+export default Categories
